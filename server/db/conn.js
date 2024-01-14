@@ -1,10 +1,5 @@
-// const userSchemas = new mongoose.Schema({
-
-// })
-// const Userproduct = new mongoose.model('Users',userSchemas);
-// module.exports = Userproduct;
 const mongoose = require('mongoose')
-const url = 'mongodb://localhost:27017/Dashboard_mern'
+const url = process.env.url;
 
 const connectDB = async () => {
     try {
