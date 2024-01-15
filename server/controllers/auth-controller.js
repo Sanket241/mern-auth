@@ -1,4 +1,5 @@
 const User = require('../model/user-model')
+
 const home = async (req, resp) => {
     try {
         console.log("ROUTER")
@@ -16,8 +17,10 @@ const register = async (req, resp) => {
         if (userExsist) {
             return resp.status(400).json({ msg: "Email already exsist" })
         }
-        await User.create({ username, email, phone, password })
-        resp.status(200).json({ data })
+        // const saltRound = 10;
+        // const hash_password = await bcrypt.hash(password,saltRound);
+        const usercreated = await User.create({ username, email, phone, password})  //:hash_password 
+        resp.status(201).json({msg: usercreated })
     } 
     catch (error) {
         resp.status(200).send({ msg: "page not found" })
