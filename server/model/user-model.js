@@ -1,22 +1,23 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
-    username: {
+    name: {
         type: String,
-        require: true,
+        required: true,
     },
     email: {
         type: String,
-        require: true,
+        required: true,
     },
     phone: {
         type: String,
-        require: true,
+        required: true,
     },
     password: {
         type: String,
-        require: true,
+        required: true,
     },
     isAdmin: {
         type: Boolean,
@@ -26,7 +27,7 @@ const userSchema = new mongoose.Schema({
 })
 userSchema.pre("save", async function (next) {
     const user =this;
-    if(!user.isModified("password")){
+    if(!user.isModified('password')){
         next();
     }
     try{
@@ -35,12 +36,27 @@ userSchema.pre("save", async function (next) {
         const saltRound = 12;
         const hash_password = await bcrypt.hash(user.password,saltRound)
         user.password = hash_password;
-        next();
+        
     }
     catch(error){
         console.log(error)
     }
-    next()
 })
+//json web token
+userSchema.methods.generateToken = async function(){
+    try{
+        return jwt.sign({
+            userId: this._id.toString(),
+            email:this.email,
+            isAdmin:this.admin,
+        },
+        process.env.jwt_secret_key,{
+            expiresIn:'1d',
+        }
+        )
+    }catch(error){
+        console.log(error)
+    }
+}
 const User = new mongoose.model('User', userSchema);
 module.exports = User;

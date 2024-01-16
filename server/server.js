@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors')
 const router = require('./router/auth-router')
 const connectDb = require('./db/conn')
+const bcrypt = require('bcryptjs')
 const port = process.env.PORT || 5000;
 
 app.use(cors());
