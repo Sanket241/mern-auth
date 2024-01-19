@@ -36,7 +36,6 @@ const login = async (req, resp) => {
     try {
         const { email, password } = req.body;
         const userExist = await User.findOne({email})
-        console.log(userExist)
         if (!userExist) {
             return resp.status(400).send({ msg: "Invalid Credentials" })
         }
@@ -54,8 +53,16 @@ const login = async (req, resp) => {
 
         }
 
-    } catch (error) {
+    } catch (err) {
         resp.status(500).send({ msg: "page not found" })
+        // const status = 500;
+        // const message = "Page Not Found"
+        // const error ={
+        //     status,
+        //     message
+        // }
+        // console.log(error)
+        // next(error)
 
     }
 }
