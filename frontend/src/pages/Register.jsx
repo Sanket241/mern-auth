@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-
+import {useNavigate} from 'react-router-dom'
 export const Register = () => {
+  const navigate = useNavigate()
   const[user,setUser]=useState({
-    name:"",
+    username:"",
     email:"",
     phone:"",
     password:"",
@@ -17,10 +18,31 @@ export const Register = () => {
       [name]:value,
     })
   }
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
+    try{
     e.preventDefault();
-    console.log(user)
+    const response = await fetch('http://localhost:5000/api/auth/register',{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+      },
+      body:JSON.stringify(user),
+    })
+    console.log(response)
+    if(response.ok){
+      setUser({
+        username:"",
+        email:"",
+        phone:"",
+        password:"",
+      })
+      navigate("/login")
+    }
+    
+  }catch(error){
+    console.log
   }
+}
   return (
     <>
     <section>
@@ -36,18 +58,18 @@ export const Register = () => {
               <form onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="name">Name</label>
-                  <input type="text" name="name" value={user.name} onChange={handleInput} placeholder="Enter your Username" id="username" autoComplete='off' required />
+                  <input type="text" name="username" value={user.name} onChange={handleInput} placeholder="Enter your Username" id="username" autoComplete='off' required />
                 </div>
                 <div>
                   <label htmlFor="email">Email</label>
-                  <input type="text" name="email" value={user.email} onChange={handleInput} placeholder="Enter your Email" id="email" autoComplete='off' required />
+                  <input type="email" name="email" value={user.email} onChange={handleInput} placeholder="Enter your Email" id="email" autoComplete='off' required />
                 </div>
                 <div>
                   <label htmlFor="phone">Phone</label>
                   <input type="number" name="phone" value={user.phone} onChange={handleInput} placeholder="Enter your Phone" id="phone" autoComplete='off' required />
                 </div>
                 <div>
-                  <label htmlFor="name">Password</label>
+                  <label htmlFor="password">Password</label>
                   <input type="password" name="password" value={user.password} onChange={handleInput} placeholder="Enter your Password" id="password" autoComplete='off' required />
                 </div>
                 <button type="submit" class="btn btn-submit"  >Register</button>

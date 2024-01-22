@@ -12,14 +12,14 @@ const home = async (req, resp) => {
 const register = async (req, resp) => {
     try {
         console.log(req.body);
-        const { name, email, phone, password } = req.body;
+        const { username, email, phone, password } = req.body;
         const userExsist = await User.findOne({ email: email })
         if (userExsist) {
             return resp.status(400).json({ msg: "Email already exsist" })
         }
         // const saltRound = 10;
         // const hash_password = await bcrypt.hash(password,saltRound);
-        const userCreated = await User.create({ name, email, phone, password })  //:hash_password 
+        const userCreated = await User.create({ username, email, phone, password })  //:hash_password 
         resp.status(201).json({
             msg: "Successful created",
             token: await userCreated.generateToken(),

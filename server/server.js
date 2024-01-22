@@ -8,6 +8,11 @@ const connectDb = require('./db/conn')
 const errormidlleware = require('./middlewares/error-midlleware');
 const port = process.env.PORT || 5000;
 
+// const corsOption={
+//     origin:"http://localhost:5173/",
+//     methods:"GET, POST, PUT, DELETE, PATCH, HEAD",
+//     Credential:true,
+// }
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth",authRouter)
