@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
+const URL = 'http://localhost:5000/api/auth/register';
 export const Register = () => {
   const navigate = useNavigate()
   const[user,setUser]=useState({
@@ -21,7 +22,7 @@ export const Register = () => {
   const handleSubmit=async(e)=>{
     try{
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/api/auth/register',{
+    const response = await fetch(URL,{
       method:"POST",
       headers:{
         "Content-Type":"application/json",
