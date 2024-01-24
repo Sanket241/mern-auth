@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
+import {useAuth} from '../store/auth'
 const URL = 'http://localhost:5000/api/auth/register';
 export const Register = () => {
+
   const navigate = useNavigate()
+  const storetokeninLs = useAuth()
   const[user,setUser]=useState({
     username:"",
     email:"",
@@ -31,6 +34,11 @@ export const Register = () => {
     })
     console.log(response)
     if(response.ok){
+      const res_data = await response.json()
+      console.log('res from server',res_data)
+      storetokeninLs(res_data.token);
+      // localStorage.setItem("token",res_data)
+
       setUser({
         username:"",
         email:"",

@@ -29,6 +29,10 @@ export const Login = () => {
       })
       console.log("Login form",response);
       if(response.ok){
+        // const res_data = await response.json()
+        // storetokeninLs(res_data);
+        // console.log('res from server',res_data)
+// localStorage.setItem("token",res_data.token) is tarike se likhne ki wajaye hum context api use kar rahe ek jagah store karenge saara kuch 
         setUser({
           email:"",
           password:"",
