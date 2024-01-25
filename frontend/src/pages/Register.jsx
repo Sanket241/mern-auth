@@ -5,7 +5,7 @@ const URL = 'http://localhost:5000/api/auth/register';
 export const Register = () => {
 
   const navigate = useNavigate()
-  const storetokeninLs = useAuth()
+  const {storetokeninLs} = useAuth()
   const[user,setUser]=useState({
     username:"",
     email:"",
@@ -33,11 +33,11 @@ export const Register = () => {
       body:JSON.stringify(user),
     })
     console.log(response)
-    if(response.ok){
+    if(response.ok){  
       const res_data = await response.json()
-      console.log('res from server',res_data)
       storetokeninLs(res_data.token);
-      // localStorage.setItem("token",res_data)
+      console.log('res from server',res_data)
+      // localStorage.setItem("token",res_data.token)
 
       setUser({
         username:"",

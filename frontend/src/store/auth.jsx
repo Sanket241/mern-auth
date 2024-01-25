@@ -1,25 +1,34 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
-export const AuthProvider =({children})=>{
-
-    const storetokeninLs =(servtoken)=>{
-        return localStorage.setItem("token",servtoken)
+export const AuthProvider = ({ children }) => {
+    const [token, setToken] = useState(localStorage.getItem("token"))
+    const storetokeninLs = (servtoken) => {
+        return localStorage.setItem("token", servtoken)
     }
 
-return(
-    <AuthContext.Provider value={storetokeninLs}>
-    {children}
-    </AuthContext.Provider>
-        )
+    // takling the functionality
+ 
+    let isLoggedIn = !!token;
+    console.log("isLoggedIn",isLoggedIn);
+    const LogoutUser = () => {
+        setToken("")
+        return localStorage.removeItem("token")
+    }
+
+    return (
+        <AuthContext.Provider value={{ isLoggedIn,storetokeninLs, LogoutUser }}>
+            {children}
+        </AuthContext.Provider>
+    )
 }
 //custom hook
 
-export const useAuth=()=>{
+export const useAuth = () => {
     const authContextValue = useContext(AuthContext);
-    if(!authContextValue ){  // this is used for check you give wrapper in main jsx correctly or not
+    if (!authContextValue) {  // this is used for check you give wrapper in main jsx correctly or not
         throw new Error("useAuth use outside of the Provider")
     }
-    return authContextValue ;
+    return authContextValue;
 }
