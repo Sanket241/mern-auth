@@ -5,10 +5,10 @@ const authMiddleware=async(req,resp,next)=>{
 
     const token = req.header('Authorization');
     if(!token){
-        return resp.status(401).json({msg:"Unauthorized HTTP< Token not provider"})
+        return resp.status(401).json({msg:"Unauthorized HTTP, Token not provider"})
     }
-    const jwtToken = token.replace("Bearer","").trim();
-    console.log("token from middleware",token)
+    const jwtToken = token.replace("Bearer"," ").trim()
+    console.log("token from middleware",jwtToken)
 
     try {
         const isVerified = jwt.verify(jwtToken,process.env.jwt_secret_key)

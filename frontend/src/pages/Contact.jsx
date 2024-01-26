@@ -1,11 +1,23 @@
 import React, { useState } from 'react'
+import { useAuth } from '../store/auth'
 import './Contact.css'
 export const Contact = () => {
+  const {user} = useAuth()
+  const [userData,setUserData]=useState(true)
+
   const [contact,setContact]=useState({
-    name:"",
+    username:"",
     email:"",
     message:"",
   })
+  if(userData && user ){
+    setContact({
+      username:user.username,
+      email:user.email,
+      message:"",
+    })
+    setUserData(false)
+  }
   const handleInput =(e)=>{
     let name =e.target.name
     let value = e.target.value;
@@ -36,8 +48,8 @@ export const Contact = () => {
           <section className="section-form">
             <form onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="name">name</label>
-                <input type="text" name="name" id="name" autoComplete="off" value={contact.name} onChange={handleInput} required />
+                <label htmlFor="username">username</label>
+                <input type="text" name="username" id="name" autoComplete="off" value={contact.username} onChange={handleInput} required />
               </div>
 
               <div>
