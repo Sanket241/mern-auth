@@ -6,6 +6,7 @@ const authRouter = require('./router/auth-router')
 const contactRoute = require('./controllers/contact-controller')
 const connectDb = require('./db/conn')
 const errormidlleware = require('./middlewares/error-midlleware');
+const serviseRoute = require('./router/service-router')
 const port = process.env.PORT || 5000;
 
 // const corsOption={
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth",authRouter)
 app.use("/api/form",contactRoute)
+app.use("/api/data",serviseRoute)
 app.use(errormidlleware) // ekdum bottom par likhna hai
 
 
