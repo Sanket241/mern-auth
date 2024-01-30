@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
+import { useAuth } from '../store/auth';
 const URL = 'http://localhost:5000/api/auth/login';
 export const Login = () => {
+  const {storetokeninLs} = useAuth();
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
@@ -29,9 +31,9 @@ export const Login = () => {
       })
       console.log("Login form",response);
       if(response.ok){
-//         const res_data = await response.json()
-//         storetokeninLs(res_data);
-//         console.log('res from server',res_data)
+        const res_data = await response.json()
+        storetokeninLs(res_data);
+        console.log('res from server',res_data)
 // localStorage.setItem("token",res_data.token) //is tarike se likhne ki wajaye hum context api use kar rahe ek jagah store karenge saara kuch 
         setUser({
           email:"",

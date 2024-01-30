@@ -7,7 +7,7 @@ export const Logout = () => {
 
     useEffect(()=>{
         LogoutUser();
-    },LogoutUser)
+    },[LogoutUser])
 
   return navigate("/login")
 }

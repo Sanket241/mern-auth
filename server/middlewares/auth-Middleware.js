@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../model/user-model')
 const authMiddleware=async(req,resp,next)=>{
 
-    const token = req.header('Authorization');
+    const token = req.header('Authorization');  //only write HEADER INSTEAD OF HEADERS
     if(!token){
         return resp.status(401).json({msg:"Unauthorized HTTP, Token not provider"})
     }

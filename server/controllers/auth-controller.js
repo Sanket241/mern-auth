@@ -71,7 +71,7 @@ const user =async(req,resp)=>{
 try{
 const userData = req.user
 console.log(userData)
-resp.status(200).json({userData})
+return resp.status(200).json(userData)
 }catch(error){
     console.log(`error from the user route ${error}`)
 }
