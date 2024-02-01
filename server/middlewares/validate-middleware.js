@@ -9,11 +9,11 @@ const validate = (schema) => async (req, resp, next) => {
     } catch (err) {
         const message ='Failed the input properly'
         const status = 422;
-        const extraDetaile = err.errors[0].message;
+        const extraDetails = err.errors[0].message;
         const error={
             status,
             message,
-            extraDetaile
+            extraDetails
         }
         // const message = err.errors[1].message;
         // const message = err.errors[2].message;

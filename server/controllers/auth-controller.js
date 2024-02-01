@@ -15,7 +15,7 @@ const register = async (req, resp) => {
         const { username, email, phone, password } = req.body;
         const userExsist = await User.findOne({ email: email })
         if (userExsist) {
-            return resp.status(400).json({ msg: "Email already exsist" })
+            return resp.status(400).json({ message: "Email already exsist" })
         }
         // const saltRound = 10;
         // const hash_password = await bcrypt.hash(password,saltRound);
@@ -37,7 +37,7 @@ const login = async (req, resp) => {
         const { email, password } = req.body;
         const userExist = await User.findOne({email})
         if (!userExist) {
-            return resp.status(400).send({ msg: "Invalid Credentials" })
+            return resp.status(400).send({ message: "Invalid Credentials" })
         }
         // const user = await bcrypt.compare(password, userExist.password);
         const user = await userExist.comparePassword(password);

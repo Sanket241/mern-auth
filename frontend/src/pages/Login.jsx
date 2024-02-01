@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useAuth } from '../store/auth';
+import {toast} from 'react-toastify'
 const URL = 'http://localhost:5000/api/auth/login';
 export const Login = () => {
   const {storetokeninLs} = useAuth();
@@ -30,20 +31,19 @@ export const Login = () => {
         body: JSON.stringify(user),
       })
       console.log("Login form",response);
+      const res_data = await response.json()
       if(response.ok){
-        const res_data = await response.json()
         storetokeninLs(res_data);
-        console.log('res from server',res_data)
 // localStorage.setItem("token",res_data.token) //is tarike se likhne ki wajaye hum context api use kar rahe ek jagah store karenge saara kuch 
         setUser({
           email:"",
           password:"",
         })
-       alert("LOGIN")
+        toast.success("Login successfully")
        navigate('/')
       }
       else{
-        console.log("INVALID crenditial")
+        toast.error(res_data.extraDetails ? res_data.extraDetails : res_data.message)
       }
      
     } catch (error) {
