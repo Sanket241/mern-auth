@@ -16,6 +16,7 @@ const Navbar = () => {
                         <li><NavLink to="/about">About</NavLink></li>
                         <li><NavLink to="/contact">Contact</NavLink></li>
                         <li><NavLink to="/service">Service</NavLink></li>
+                        <NavLink to="/admin"><li>admin</li></NavLink>
                         {
                             isLoggedIn ? ( <li><NavLink to="/logout">Logout</NavLink></li> )
                                 :

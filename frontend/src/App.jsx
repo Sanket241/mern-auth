@@ -9,6 +9,10 @@ import { Login } from './pages/Login'
 import { Service } from './pages/Service'
 import { Register } from './pages/Register'
 import { Logout } from './pages/Logout'
+import { Adminlayout } from './Component/Layouts/Adminlayout'
+import { AdminUsers } from './pages/Admin-users'
+import { AdminContact } from './pages/Admin-contact'
+
 const App = () => {
   return (
     <>
@@ -23,6 +27,10 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/*" element={<Error />} />
+          <Route path="/admin" element={<Adminlayout />}>
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="contact" element={<AdminContact />} />
+          </Route>
         </Routes>
         <Footer/>
       </BrowserRouter>
